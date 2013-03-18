@@ -3,10 +3,9 @@ htlm, body{
 }
 canvas {
     position: relative;
-    width: 640px;
     top: 100px;
     left: 50%;
-    margin-left: -320px;
+    margin-left: -360px;
     border-radius: 3px;
     border: 2px #000 solid;
     padding:0;

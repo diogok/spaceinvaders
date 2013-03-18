@@ -1,6 +1,15 @@
 var game = (function(){
     var game = this, started=false, hCenter, vCenter;
 
+    var enimies = [
+        ['red','red','red','red','red','red','red','red','red','red'],
+        ['yellow','yellow','yellow','yellow','yellow','yellow','yellow','yellow','yellow','yellow'],
+        ['yellow','yellow','yellow','yellow','yellow','yellow','yellow','yellow','yellow','yellow'],
+        ['green','green','green','green','green','green','green','green','green','green'],
+        ['green','green','green','green','green','green','green','green','green','green'],
+        ['green','green','green','green','green','green','green','green','green','green']
+    ];
+
     var play = function() {
 
         var player, aliens, level=0, lifes=3, limit = jaws.height - 35 ;
@@ -16,9 +25,9 @@ var game = (function(){
             player.bullets = new jaws.SpriteList();
 
             aliens = new jaws.SpriteList();
-            for(var line in levels[level]) {
-                for(var n in levels[level][line]) {
-                    aliens.push(makeAlien(line,n,levels[level][line][n]));
+            for(var line in enimies) {
+                for(var n in enimies[line]) {
+                    aliens.push(makeAlien(line,n,enimies[line][n]));
                 }
             }
             aliens.bullets = new jaws.SpriteList();
@@ -283,9 +292,9 @@ var game = (function(){
     };
 
     game.start = function() {
-        jaws.assets.add(['player.png']);
-        jaws.assets.add(['alien_blue.png','alien_purple.png','alien_green.png']);
-        jaws.assets.add(['bullet_blue.png','bullet_purple.png','bullet_green.png']);
+        jaws.assets.add(['player.png','bullet_blue.png']);
+        jaws.assets.add(['alien_yellow.png','alien_red.png','alien_green.png']);
+        jaws.assets.add(['bullet_yellow.png','bullet_red.png','bullet_green.png']);
         jaws.start(intro);
 
         hCenter = jaws.width/2;
