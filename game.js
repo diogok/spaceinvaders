@@ -113,7 +113,7 @@ var game = (function(){
                 jaws.context.font = "normal 36pt monospace";
                 jaws.context.lineWidth = 10;
                 jaws.context.fillStyle = "#006700";
-                jaws.context.fillText("Game Over!", hCenter - 120, vCenter + 40);
+                jaws.context.fillText("Game Over!", hCenter - 120, vCenter);
                 jaws.context.font = "normal 12pt monospace";
                 jaws.context.fillText("Press 'esc' to play again...", hCenter - 100, vCenter + 40);
             }
@@ -124,7 +124,7 @@ var game = (function(){
                 jaws.context.fillStyle = "#006700";
                 jaws.context.fillText("You Won!", hCenter - 100, vCenter );
                 jaws.context.font = "normal 12pt monospace";
-                jaws.context.fillText("Press 'esc' to continue...", hCenter - 100, vCenter );
+                jaws.context.fillText("Press 'esc' to continue...", hCenter - 100, vCenter + 40);
             }
         };
 
