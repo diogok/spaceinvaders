@@ -1,5 +1,5 @@
 var game = (function(){
-    var game = this, started=false, hCenter, vCenter;
+    var game = this, started=false, hCenter, vCenter, level=1, lifes=3,score=0 ;
 
     var enimies = [
         ['red','red','red','red','red','red','red','red','red','red'],
@@ -12,7 +12,7 @@ var game = (function(){
 
     var play = function() {
 
-        var player, aliens, level=0, lifes=3, limit = jaws.height - 35 ;
+        var player, aliens, limit = jaws.height - 35 ;
 
         this.setup = function() {
             if(started) return;
@@ -41,8 +41,15 @@ var game = (function(){
             if(isGameOver() || playerWon()) {
                 clearInterval(aliens.timer);
                 clearInterval(aliens.shooter);
-                if(jaws.pressed('space')) {
-                    started=false;
+                if(jaws.pressed('esc')) {
+                    started = false;
+                    if(playerWon()) {
+                        level++ ;
+                    } else {
+                        level = 1;
+                        lifes = 3;
+                        score = 0;
+                    }
                     jaws.switchGameState(play);
                 }
                 return;
@@ -53,7 +60,7 @@ var game = (function(){
                 if(!player.fired) {
                     player.fired = true;
                     player.bullets.push(makeBullet(player,'blue',-1.7));
-                    setTimeout(function(){ player.fired = false},500);
+                    setTimeout(function(){ player.fired = false},250);
                 }
             }
             insideCanvas(player);
@@ -94,6 +101,8 @@ var game = (function(){
             jaws.context.lineWidth = 10;
             jaws.context.fillStyle = "#006700";
             jaws.context.fillText("Lifes: "+ lifes, jaws.width - 100, 20);
+            jaws.context.fillText("Level: "+ level, jaws.width - 100, 40);
+            jaws.context.fillText("Score: "+ score, 10, 20);
 
             player.draw();
             player.bullets.draw();
@@ -104,7 +113,9 @@ var game = (function(){
                 jaws.context.font = "normal 36pt monospace";
                 jaws.context.lineWidth = 10;
                 jaws.context.fillStyle = "#006700";
-                jaws.context.fillText("Game Over!", hCenter - 120, vCenter );
+                jaws.context.fillText("Game Over!", hCenter - 120, vCenter + 40);
+                jaws.context.font = "normal 12pt monospace";
+                jaws.context.fillText("Press 'esc' to play again...", hCenter - 100, vCenter + 40);
             }
 
             if(playerWon()) {
@@ -112,6 +123,8 @@ var game = (function(){
                 jaws.context.lineWidth = 10;
                 jaws.context.fillStyle = "#006700";
                 jaws.context.fillText("You Won!", hCenter - 100, vCenter );
+                jaws.context.font = "normal 12pt monospace";
+                jaws.context.fillText("Press 'esc' to continue...", hCenter - 100, vCenter );
             }
         };
 
@@ -120,6 +133,13 @@ var game = (function(){
                 var bullet = player.bullets.sprites[i];
                 if(alien.rect().collideRect(bullet.rect())) {
                     bullet.hit=true;
+                    if(alien.type == 'green') {
+                        score += 2 * level;
+                    } else if(alien.type == 'yellow') {
+                        score += 4 * level;
+                    } else if(alien.type == 'red') {
+                        score += 8 * level;
+                    }
                     return true;
                 }
             }
@@ -191,7 +211,8 @@ var game = (function(){
         }
 
         function makeAlien(line,n,type) {
-            var alien = new jaws.Sprite({image: 'alien_'+type+'.png', y: line * 30 + 10, x: (n * 50) + 30 });
+            var leveler = (level<5)?level:5;
+            var alien = new jaws.Sprite({image: 'alien_'+type+'.png', y: line * 30 + 10 + leveler * 30, x: (n * 50) + 30 });
             alien.type = type;
             alien.x -= alien.width / 2;
             return alien;
@@ -219,8 +240,8 @@ var game = (function(){
                     }
                 }
                 for(var i in lastRow) {
-                    var rand =Math.floor(Math.random()*10);
-                    if(rand <= 1) {
+                    var rand = Math.floor(Math.random()*100);
+                    if(rand <= 5 * level) {
                         aliens.bullets.push(makeBullet(lastRow[i],lastRow[i].type,1));
                     }
                 }
