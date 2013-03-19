@@ -60,7 +60,7 @@ var game = (function(){
                 if(!player.fired) {
                     player.fired = true;
                     player.bullets.push(makeBullet(player,'blue',-1.7));
-                    setTimeout(function(){ player.fired = false},250);
+                    setTimeout(function(){ player.fired = false},300);
                 }
             }
             insideCanvas(player);
@@ -75,7 +75,7 @@ var game = (function(){
                 //aliens.timer = makeAliensMove(10);
             } else if(aliens.sprites.length <= 7 && aliens.interval > 20)  {
                 clearInterval(aliens.timer);
-                aliens.timer = makeAliensMove(20);
+                aliens.timer = makeAliensMove(25);
             } else if(aliens.sprites.length <= 14 && aliens.interval > 30)  {
                 clearInterval(aliens.timer);
                 aliens.timer = makeAliensMove(30);
