@@ -70,10 +70,10 @@ var game = (function(){
             aliens.bullets.removeIf(playerGotHit);
             aliens.bullets.removeIf(outsideCanvas);
 
-            if(aliens.sprites.length <= 3 && aliens.interval > 10)  {
-                //clearInterval(aliens.timer);
-                //aliens.timer = makeAliensMove(10);
-            } else if(aliens.sprites.length <= 7 && aliens.interval > 20)  {
+            if(aliens.sprites.length <= 3 && aliens.interval > 20)  {
+                clearInterval(aliens.timer);
+                aliens.timer = makeAliensMove(20);
+            } else if(aliens.sprites.length <= 7 && aliens.interval > 25)  {
                 clearInterval(aliens.timer);
                 aliens.timer = makeAliensMove(25);
             } else if(aliens.sprites.length <= 14 && aliens.interval > 30)  {
