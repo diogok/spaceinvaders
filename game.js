@@ -1,7 +1,7 @@
 var game = (function(){
     var game = this, started=false, hCenter, vCenter, level=1, lifes=3,score=0 ;
 
-    var enimies = [
+    var enemies = [
         ['red','red','red','red','red','red','red','red','red','red'],
         ['yellow','yellow','yellow','yellow','yellow','yellow','yellow','yellow','yellow','yellow'],
         ['yellow','yellow','yellow','yellow','yellow','yellow','yellow','yellow','yellow','yellow'],
@@ -25,9 +25,9 @@ var game = (function(){
             player.bullets = new jaws.SpriteList();
 
             aliens = new jaws.SpriteList();
-            for(var line in enimies) {
-                for(var n in enimies[line]) {
-                    aliens.push(makeAlien(line,n,enimies[line][n]));
+            for(var line in enemies) {
+                for(var n in enemies[line]) {
+                    aliens.push(makeAlien(line,n,enemies[line][n]));
                 }
             }
             aliens.bullets = new jaws.SpriteList();
